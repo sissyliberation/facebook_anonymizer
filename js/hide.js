@@ -96,6 +96,7 @@ function hideName() {
 			people_names[new_name] = new_name;	
 		}
 		$(this).html(people_names[name]);
+		$(this).data('anon','true');
 	});
 
 	// profile name
@@ -107,6 +108,7 @@ function hideName() {
 			people_names[new_name] = new_name;	
 		}
 		$(this).html(people_names[name]);
+		$(this).data('anon','true');
 	});
 
 	// name on search field
@@ -118,6 +120,7 @@ function hideName() {
 			people_names[new_name] = new_name;	
 		}
 		$(this).html(people_names[name]);
+		$(this).data('anon','true');
 	});
 
 	// do you know this person?
