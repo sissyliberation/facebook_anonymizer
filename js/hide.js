@@ -18,7 +18,7 @@ function hideCommentors() {
 }
 
 function hideOP() {
-	$('.fwb:visible').each(function(index){
+	$('.fwb:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -31,7 +31,7 @@ function hideOP() {
 }
 
 function hideWithSomebody() {
-	$('.profileLink:visible').each(function(index){
+	$('.profileLink:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -53,7 +53,7 @@ function hideLinkedGroup() {
 }
 
 function hideBirthdayPeeps() {
-	$('.fbRemindersTitle:visible').each(function(index){
+	$('.fbRemindersTitle:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -88,7 +88,7 @@ function hideName() {
 	}
 
 	// names under friends
-	$('.mas .name:visible').each(function(index){
+	$('.mas .name:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -99,7 +99,7 @@ function hideName() {
 	});
 
 	// profile name
-	$('#fbProfileCover:visible').each(function(index){
+	$('#fbProfileCover:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -110,7 +110,7 @@ function hideName() {
 	});
 
 	// name on search field
-	$('.entity ._586o:visible').each(function(index){
+	$('.entity ._586o:not([data-anon])').each(function(index){
 		var name = $(this).text();
 		if (!(name in people_names)) {
 			var new_name = chance.name();
@@ -270,9 +270,9 @@ function hideEverything() {
 	hideRecommendedPagesPeople();
 }
 
-// document.addEventListener("DOMNodeInserted", function(evt) {
-//     hideEverything();
-// }, false);
+document.addEventListener("DOMNodeInserted", function(evt) {
+    hideEverything();
+}, false);
 
 
 $(document).ready(function(){
@@ -280,7 +280,9 @@ $(document).ready(function(){
 	hideEverything();
 
 
-	// document.addEventListener("DOMNodeInserted", function(evt) {
- //    	hideEverything();
-	// }, false);
+	document.addEventListener("DOMNodeInserted", function(evt) {
+    	hideEverything();
+	}, false);
+
+
 });
