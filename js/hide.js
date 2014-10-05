@@ -1,83 +1,28 @@
 var people_names = {};
 
-function hideCommentors() {
-	// var ppl = document.getElementsByClassName('UFICommentActorName');
-	// for(var i = 0; i < ppl.length; ++i) {
-	// 	ppl[i].innerHTML ='hi';
-	// }
-	$('.UFICommentActorName:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-}
+var queries = [
+	'.UFICommentActorName:not([data-anon])',
+	'.fwb:not([data-anon])',
+	'.profileLink:not([data-anon])',
+	'.fbRemindersTitle:not([data-anon])'
+];
 
-function hideOP() {
-	$('.fwb:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-}
-
-function hideWithSomebody() {
-	$('.profileLink:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;	
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-}
-
-function hideLinkedGroup() {
-	var linkedGroup = document.getElementsByClassName('fwb fcg');
-	for(var i = 0; i < linkedGroup.length; ++i) {
-		if (linkedGroup[i].childNodes[3]) {
-			linkedGroup[i].childNodes[3].innerHTML = "Some Page";
-		}
-	}
-}
-
-function hideBirthdayPeeps() {
-	$('.fbRemindersTitle:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;	
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-}
-
-function hideGroups() {
-	var groupSection = document.getElementById('groupsNav');
-	if (groupSection) {
-		var groups = groupSection.getElementsByClassName('linkWrap');
-		for(var i =0; i < groups.length; ++i) {
-			groups[i].innerHTML = "Some Group";
-		}
+function hideAllNames() {
+	for(var i =0; i < queries.length;++i) {
+		$(queries[i]).each(function(index){
+			var name = $(this).text();
+			if (!(name in people_names)) {
+				var new_name = chance.name();
+				people_names[name] = new_name;
+				people_names[new_name] = new_name;
+			}
+			$(this).html(people_names[name]);
+			$(this).data('anon','true');
+		});
 	}
 }
 
 function hideName() {
-
-	
 	var yourname = document.getElementsByClassName('fbxWelcomeBoxName');
 	for(var i =0; i < yourname.length; ++i) {
 		yourname[i].innerHTML = "Me";
@@ -138,57 +83,67 @@ function hideName() {
 	}
 }
 
+function hideGroups() {
+	var groupSection = document.getElementById('groupsNav');
+	if (groupSection) {
+		var groups = groupSection.getElementsByClassName('linkWrap');
+		for(var i =0; i < groups.length; ++i) {
+			groups[i].innerHTML = "Some Group";
+		}
+	}
+}
+
+function hideLinkedGroup() {
+	var linkedGroup = document.getElementsByClassName('fwb fcg');
+	for(var i = 0; i < linkedGroup.length; ++i) {
+		if (linkedGroup[i].childNodes[3]) {
+			linkedGroup[i].childNodes[3].innerHTML = "Some Page";
+		}
+	}
+}
+
 function hidePictures() {
-	var imgurl = "";
-	
+
 	var mypic = document.getElementsByClassName('fbxWelcomeBoxImg');
 	if (mypic.length) {
 		$(mypic[0]).css('-webkit-filter','blur(5px)');
-		// mypic[0].src = imgurl;	
 	}
 
 	var profilepic = document.getElementsByClassName('profilePic');
 	if (profilepic.length) {
 		$(profilepic[0]).css('-webkit-filter','blur(5px)');
-		// profilepic[0].src = imgurl;
 	}
 
 	var pics = document.getElementsByClassName('UFIActorImage');
 	for(var i =0; i < pics.length; ++i) {
 		$(pics[i]).css('-webkit-filter','blur(5px)');
-		// pics[i].src = imgurl;
 	}
 
 	pics = document.getElementsByClassName('_rw img');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}
 
 	pics = document.getElementsByClassName('_s0 _50c7 _54rt img');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}	
 
 	// images of people who like a page that's been linked
 	pics = document.getElementsByClassName('_s0 _ry img');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}
 	
 	// friend pictures
 	pics = document.getElementsByClassName('friendPhoto');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}
 
 	// mutual friends on a non-friend
 	pics = document.getElementsByClassName('_s0 _54ru img');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}
 
@@ -196,7 +151,6 @@ function hidePictures() {
 
 	pics = document.getElementsByClassName('scaledImageFitWidth');
 	for(var i =0; i < pics.length; ++i) {
-		// pics[i].src = imgurl;
 		$(pics[i]).css('-webkit-filter','blur(5px)');
 	}
 
@@ -215,7 +169,6 @@ function hidePictures() {
 		for(var i = 0; i < imgContainer.length; ++i) {
 			pics = imgContainer[i].getElementsByClassName('img');
 			for(var j =0; j < pics.length; ++j) {
-				// pics[j].src = imgurl;
 				$(pics[j]).css('-webkit-filter','blur(5px)');
 			}
 		}
@@ -226,24 +179,23 @@ function hidePictures() {
 		for(var i = 0; i < imgContainer.length; ++i) {
 			pics = imgContainer[i].getElementsByClassName('img');
 			for(var j =0; j < pics.length; ++j) {
-				// pics[j].src = imgurl;
 				$(pics[j]).css('-webkit-filter','blur(5px)');
 			}
 		}
 	}
 
 	// group faces on top of current ppl
-	imgContainer = document.getElementsByClassName('groupHugFace groupHugFaceHover')
-		if(imgContainer) {
+	imgContainer = document.getElementsByClassName('groupHugFace groupHugFaceHover');
+	if(imgContainer) {
 		for(var i = 0; i < imgContainer.length; ++i) {
 			pics = imgContainer[i].getElementsByTagName('img');
 			for(var j =0; j < pics.length; ++j) {
-				// pics[j].src = imgurl;
 				$(pics[j]).css('-webkit-filter','blur(5px)');
 			}
 		}
 	}
 }
+
 
 function hideRecommendedPagesPeople() {
 	var peopleArea = document.getElementsByClassName('egoProfileTemplate');
@@ -262,11 +214,11 @@ function hideRecommendedPagesPeople() {
 }
 
 function hideEverything() {
-	hideCommentors();
-	hideOP();
-	hideWithSomebody();
+
+	hideAllNames();
+
+	// these still need fixing
 	hideLinkedGroup();
-	hideBirthdayPeeps();
 	hideGroups();
 	hidePictures();
 	hideName();
@@ -282,10 +234,7 @@ $(document).ready(function(){
 	document.title = "Some Facebook Page";
 	hideEverything();
 
-
 	document.addEventListener("DOMNodeInserted", function(evt) {
     	hideEverything();
 	}, false);
-
-
 });
