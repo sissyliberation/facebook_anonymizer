@@ -1,6 +1,6 @@
 {
   "name": "Facebook Anonymizer",
-  "version": "1.0",
+  "version": "2.0",
   "manifest_version": 2,
   "description": "This Chrome Extension will anonymize Facebook, replacing names and images with placeholders",
   "homepage_url": "https://github.com/yvescourtois/facebook_anonymizer",
@@ -15,6 +15,6 @@
   },
   "content_scripts": [{
     "matches": ["https://www.facebook.com/*"],
-    "js": [ "js/jquery.min.js","js/hide.js" ]
+    "js": [ "js/jquery.min.js","js/hide.js", "js/chance.min.js" ]
   } ]
 }
