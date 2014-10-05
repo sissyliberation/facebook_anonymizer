@@ -1,15 +1,18 @@
 var people_names = {};
 
-var queries = [
+var name_queries = [
 	'.UFICommentActorName:not([data-anon])',
 	'.fwb:not([data-anon])',
 	'.profileLink:not([data-anon])',
-	'.fbRemindersTitle:not([data-anon])'
+	'.fbRemindersTitle:not([data-anon])',
+	'.mas .name:not([data-anon])',
+	'#fbProfileCover:not([data-anon])',
+	'.entity ._586o:not([data-anon])'
 ];
 
 function hideAllNames() {
-	for(var i =0; i < queries.length;++i) {
-		$(queries[i]).each(function(index){
+	for(var i =0; i < name_queries.length;++i) {
+		$(name_queries[i]).each(function(index){
 			var name = $(this).text();
 			if (!(name in people_names)) {
 				var new_name = chance.name();
@@ -31,42 +34,6 @@ function hideName() {
 	for(var i =0; i < yourname.length; ++i) {
 		yourname[i].innerHTML = "Me";
 	}
-
-	// names under friends
-	$('.mas .name:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;	
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-
-	// profile name
-	$('#fbProfileCover:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;	
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
-
-	// name on search field
-	$('.entity ._586o:not([data-anon])').each(function(index){
-		var name = $(this).text();
-		if (!(name in people_names)) {
-			var new_name = chance.name();
-			people_names[name] = new_name;
-			people_names[new_name] = new_name;	
-		}
-		$(this).html(people_names[name]);
-		$(this).data('anon','true');
-	});
 
 	// do you know this person?
 	nameArea = document.getElementById('pagelet_escape_hatch');
