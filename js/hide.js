@@ -5,9 +5,28 @@ var name_queries = [
 	'.fwb:not([data-anon])',
 	'.profileLink:not([data-anon])',
 	'.fbRemindersTitle:not([data-anon])',
-	'.mas .name:not([data-anon])',
+	'.mas.name:not([data-anon])',
 	'#fbProfileCover:not([data-anon])',
-	'.entity ._586o:not([data-anon])'
+	'.entity._586o:not([data-anon])',
+	'._55lr:not([data-anon])',
+	'._2dpb:not([data-anon])'
+];
+
+var img_queries = [
+	'.fbxWelcomeBoxImg:not([data-anon])',
+	'.profilePic:not([data-anon])',
+	'.UFIActorImage:not([data-anon])',
+	'._rw.img:not([data-anon])',
+	'._s0._50c7._54rt.img:not([data-anon])',
+	'._s0._ry.img:not([data-anon])',
+	'.friendPhoto:not([data-anon])',
+	'._s0._54ru.img:not([data-anon])',
+	'.scaledImageFitWidth:not([data-anon])',
+	'._s0._5xib._5sq7._rw.img:not([data-anon])',
+	'img._s0._7lw._rv.img:not([data-anon])',
+	'._s0.tickerStoryImage._54ru.img:not([data-anon])',
+	'._56p9 img:not([data-anon])',
+	'.flyoutNoIndicator:not([data-anon])'
 ];
 
 function hideAllNames() {
@@ -20,6 +39,15 @@ function hideAllNames() {
 				people_names[new_name] = new_name;
 			}
 			$(this).html(people_names[name]);
+			$(this).data('anon','true');
+		});
+	}
+}
+
+function hideAllImages() {
+	for(var i =0; i < img_queries.length;++i) {
+		$(img_queries[i]).each(function(index){
+			$(this).css('-webkit-filter','blur(5px)');
 			$(this).data('anon','true');
 		});
 	}
@@ -55,7 +83,12 @@ function hideGroups() {
 	if (groupSection) {
 		var groups = groupSection.getElementsByClassName('linkWrap');
 		for(var i =0; i < groups.length; ++i) {
-			groups[i].innerHTML = "Some Group";
+
+			function toTitleCase(str) {
+			    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			}
+			var random_name = toTitleCase(chance.sentence({words: 3}));
+			groups[i].innerHTML = random_name.substring(0, random_name.length - 1);;
 		}
 	}
 }
@@ -70,56 +103,6 @@ function hideLinkedGroup() {
 }
 
 function hidePictures() {
-
-	var mypic = document.getElementsByClassName('fbxWelcomeBoxImg');
-	if (mypic.length) {
-		$(mypic[0]).css('-webkit-filter','blur(5px)');
-	}
-
-	var profilepic = document.getElementsByClassName('profilePic');
-	if (profilepic.length) {
-		$(profilepic[0]).css('-webkit-filter','blur(5px)');
-	}
-
-	var pics = document.getElementsByClassName('UFIActorImage');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
-
-	pics = document.getElementsByClassName('_rw img');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
-
-	pics = document.getElementsByClassName('_s0 _50c7 _54rt img');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}	
-
-	// images of people who like a page that's been linked
-	pics = document.getElementsByClassName('_s0 _ry img');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
-	
-	// friend pictures
-	pics = document.getElementsByClassName('friendPhoto');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
-
-	// mutual friends on a non-friend
-	pics = document.getElementsByClassName('_s0 _54ru img');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
-
-	// your photos on profile
-
-	pics = document.getElementsByClassName('scaledImageFitWidth');
-	for(var i =0; i < pics.length; ++i) {
-		$(pics[i]).css('-webkit-filter','blur(5px)');
-	}
 
 	var imgContainer = document.getElementById('pagelet_timeline_app_collection_report_4');
 	if(imgContainer) {
@@ -183,10 +166,10 @@ function hideRecommendedPagesPeople() {
 function hideEverything() {
 
 	hideAllNames();
+	hideAllImages();
 
 	// these still need fixing
-	hideLinkedGroup();
-	hideGroups();
+	
 	hidePictures();
 	hideName();
 	hideRecommendedPagesPeople();
@@ -199,6 +182,9 @@ document.addEventListener("DOMNodeInserted", function(evt) {
 
 $(document).ready(function(){
 	document.title = "Some Facebook Page";
+	hideLinkedGroup();
+	hideGroups();
+
 	hideEverything();
 
 	document.addEventListener("DOMNodeInserted", function(evt) {
